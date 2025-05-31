@@ -14,14 +14,16 @@ gridbox.style.gridTemplateRows = `repeat(${blocks}, 1fr)`;
 creatBlocks();
 colorPicker();
 backColorPicker();
-sketching();
+sketchingByMouse();
+sketchingByTouch();
 
 document.getElementById("slider").addEventListener("input", function () {
     blocks = this.value;
     creatBlocks();
     colorPicker();
     backColorPicker();
-    sketching();
+    sketchingByMouse();
+    sketchingByTouch();
 })
 
 function colorPicker() {
@@ -37,7 +39,7 @@ function backColorPicker() {
     });
 }
 
-function sketching() {
+function sketchingByMouse() {
     let sketch = document.getElementsByClassName('grid-element');
 
     let isMouseDown = false;
@@ -53,6 +55,28 @@ function sketching() {
     for (let i = 0; i < sketch.length; i++) {
         sketch[i].addEventListener("mouseover", function () {
             if (isMouseDown) {
+                sketch[i].style.backgroundColor = `${brushcolor}`;
+            }
+        });
+    }
+
+}
+function sketchingByTouch() {
+    let sketch = document.getElementsByClassName('grid-element');
+
+    let isTouchStart = false;
+
+    document.addEventListener("touchstart", function () {
+        isTouchStart = true;
+    });
+
+    document.addEventListener("touchend", function () {
+        isTouchStart = false;
+    });
+
+    for (let i = 0; i < sketch.length; i++) {
+        sketch[i].addEventListener("touchmove", function () {
+            if (isTouchStart) {
                 sketch[i].style.backgroundColor = `${brushcolor}`;
             }
         });
