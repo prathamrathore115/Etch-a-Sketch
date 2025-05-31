@@ -4,23 +4,36 @@ let gridbox = document.getElementById("grid-box");
 
 let brushcolor = document.getElementById("pickcolor").value;
 
+let backcolor = document.getElementById("pickBackColor").value;
+document.getElementById("grid-box").style.backgroundColor = `${backcolor}`;
+
+
 gridbox.style.gridTemplateColumns = `repeat(${blocks}, 1fr)`;
 gridbox.style.gridTemplateRows = `repeat(${blocks}, 1fr)`;
 
 creatBlocks();
 colorPicker();
+backColorPicker();
 sketching();
 
 document.getElementById("slider").addEventListener("input", function () {
     blocks = this.value;
     creatBlocks();
     colorPicker();
+    backColorPicker();
     sketching();
 })
 
 function colorPicker() {
     document.getElementById("pickcolor").addEventListener("input", function () {
         brushcolor = this.value;
+    });
+}
+
+function backColorPicker() {
+    document.getElementById("pickBackColor").addEventListener("input", function () {
+        backcolor = this.value;
+        document.getElementById("grid-box").style.backgroundColor = `${backcolor}`;
     });
 }
 
@@ -53,6 +66,7 @@ function creatBlocks() {
     gridbox.style.gridTemplateColumns = `repeat(${blocks}, 1fr)`;
     gridbox.style.gridTemplateRows = `repeat(${blocks}, 1fr)`;
 
+    backColorPicker();
     for (let i = 0; i < (blocks * blocks); i++) {
         let box = document.createElement('div');
         box.className = "grid-element";
