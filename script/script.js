@@ -62,8 +62,6 @@ function sketchingByMouse() {
 
 }
 function sketchingByTouch() {
-    let sketch = document.getElementsByClassName('grid-element');
-
     let isTouchStart = false;
 
     document.addEventListener("touchstart", function () {
@@ -74,16 +72,20 @@ function sketchingByTouch() {
         isTouchStart = false;
     });
 
-    for (let i = 0; i < sketch.length; i++) {
-        sketch[i].addEventListener("touchmove", function (e) {
-            if (isTouchStart) {
-                e.preventDefault();
-                this.style.backgroundColor = `${brushcolor}`;
-            }
-        }, {passive: false});
-    }
+    document.addEventListener("touchmove", function (e) {
+        if (isTouchStart) {
+            e.preventDefault(); 
 
+            let touch = e.touches[0];
+            let target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+            if (target && target.classList.contains("grid-element")) {
+                target.style.backgroundColor = brushcolor;
+            }
+        }
+    }, { passive: false });
 }
+
 
 function creatBlocks() {
     gridbox.innerHTML = " ";
