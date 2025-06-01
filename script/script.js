@@ -75,11 +75,12 @@ function sketchingByTouch() {
     });
 
     for (let i = 0; i < sketch.length; i++) {
-        sketch[i].addEventListener("touchmove", function () {
+        sketch[i].addEventListener("touchmove", function (e) {
             if (isTouchStart) {
-                sketch[i].style.backgroundColor = `${brushcolor}`;
+                e.preventDefault();
+                this.style.backgroundColor = `${brushcolor}`;
             }
-        });
+        }, {passive: false});
     }
 
 }
